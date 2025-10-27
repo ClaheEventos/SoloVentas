@@ -66,11 +66,13 @@ export default function EventForm() {
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
 
+  // 👉 Manejar cambios de texto / select / textarea
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // 👉 Capturar imagen (foto del comprobante)
   const handlePhotoCapture = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -84,11 +86,13 @@ export default function EventForm() {
     }
   };
 
+  // 👉 Eliminar foto
   const handleRemovePhoto = () => {
     setFormData(prev => ({ ...prev, foto: '' }));
     setPhotoPreview(null);
   };
 
+  // 👉 Enviar formulario a Apps Script
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
@@ -96,27 +100,47 @@ export default function EventForm() {
 
     try {
       const formBody = new FormData();
+
+      // Identificador del formulario (para Apps Script)
+      formBody.append("tipoFormulario", "gerencia");
+
+      // 🔧 Mapeo de campos que cambian nombre entre el form y Apps Script
+      const nameMap: Record<string, string> = {
+        tipoPlanPromocion: "plan",
+        importeAbono: "importeAbonado",
+        observacion: "observaciones",
+        foto: "fotoComprobante",
+      };
+
+      // Pasar todos los campos
       Object.entries(formData).forEach(([key, value]) => {
-        formBody.append(key, String(value));
+        const finalKey = nameMap[key] || key;
+        formBody.append(finalKey, String(value));
       });
 
-      const response = await fetch('https://script.google.com/macros/s/AKfycbzcLmqL5ha9ejOsQAlEAqyynJ6ZTXsHDC4pd47y93B8Ai8hyQgu034TT5O5hJsXgrTr/exec', {
-        method: 'POST',
-        body: formBody,
-      });
+      // 👉 URL de tu Apps Script (ya funcional)
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycby4sFsydXJp-5NjiyC0U0KkYM5sV6_zUUMo0EB9U7r5yxH89DseBO8j_RKljMiozUn-/exec",
+        { method: "POST", body: formBody }
+      );
 
       const result = await response.json();
 
-      if (result.status === 'success') {
-        setMessage({ type: 'success', text: '✅ Reserva guardada exitosamente' });
+      if (result.status === "success") {
+        setMessage({ type: "success", text: "✅ Reserva guardada exitosamente" });
         setFormData(initialFormData);
         setPhotoPreview(null);
         setTimeout(() => setMessage(null), 5000);
       } else {
-        setMessage({ type: 'error', text: `❌ Error: ${result.message}` });
+        setMessage({ type: "error", text: `❌ Error: ${result.message}` });
       }
     } catch (error) {
-      setMessage({ type: 'error', text: `❌ Error: ${error instanceof Error ? error.message : 'Error de conexión'}` });
+      setMessage({
+        type: "error",
+        text: `❌ Error: ${
+          error instanceof Error ? error.message : "Error de conexión"
+        }`,
+      });
     } finally {
       setIsLoading(false);
     }

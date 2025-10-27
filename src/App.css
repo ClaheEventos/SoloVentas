@@ -99,6 +99,33 @@ header h1 {
   text-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
   animation: titleGlow 3s ease-in-out infinite;
 }
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.button-group button {
+  background-color: #ffd700; 
+  border: none;
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button-group button:hover {
+  background-color: #ffed4e;
+  transform: translateY(-2px);
+}
+
+.button-group button.active {
+  background-color: #ffed4a;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
 
 @keyframes titleGlow {
   0%, 100% {

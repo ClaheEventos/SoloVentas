@@ -47,6 +47,7 @@
   color: #ffd700;
   overflow: hidden;
   border-bottom: 2px solid #ffd700;
+  position: relative;
 }
 
 .form-header::before {
@@ -83,7 +84,6 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
   position: relative;
   z-index: 1;
   letter-spacing: 1px;
@@ -101,6 +101,42 @@
 }
 
 /* ============================================
+   MENSAJES
+   ============================================ */
+
+.form-message {
+  padding: 15px 20px;
+  margin: 20px 40px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-align: center;
+  animation: slideDown 0.3s ease;
+}
+
+.form-message.success {
+  background: rgba(76, 175, 80, 0.2);
+  border: 2px solid #4caf50;
+  color: #4caf50;
+}
+
+.form-message.error {
+  background: rgba(244, 67, 54, 0.2);
+  border: 2px solid #f44336;
+  color: #f44336;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
    SECCIONES
    ============================================ */
 
@@ -109,21 +145,6 @@
   border-bottom: 1px solid rgba(255, 215, 0, 0.1);
   transition: all 0.3s ease;
   position: relative;
-}
-
-.form-section::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 4px;
-  height: 0;
-  background: linear-gradient(180deg, #ffd700, #ffed4e);
-  transition: height 0.3s ease;
-}
-
-.form-section:hover::before {
-  height: 100%;
 }
 
 .form-section:last-of-type {
@@ -226,6 +247,13 @@
   transform: translateY(-2px);
 }
 
+.form-group input:disabled,
+.form-group select:disabled,
+.form-group textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .form-group select {
   cursor: pointer;
   appearance: none;
@@ -248,7 +276,259 @@
 }
 
 /* ============================================
-   BOTONES
+   ADICIONALES - GRID DE CHECKBOXES
+   ============================================ */
+
+.adicionales-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.adicional-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  border-radius: 8px;
+  color: #ffd700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95em;
+  font-weight: 500;
+  border: 2px solid rgba(255, 215, 0, 0.2);
+  background: rgba(255, 215, 0, 0.02);
+}
+
+.adicional-checkbox:hover {
+  background: rgba(255, 215, 0, 0.1);
+  border-color: rgba(255, 215, 0, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.15);
+}
+
+.adicional-checkbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #ffd700;
+}
+
+/* ============================================
+   ADICIONALES - LISTA DINÁMICA
+   ============================================ */
+
+.adicionales-list {
+  margin: 20px 0;
+}
+
+.adicional-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr auto;
+  gap: 12px;
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.adicional-row input {
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  background: rgba(255, 215, 0, 0.02);
+  color: #ffffff;
+  transition: all 0.3s;
+  font-size: 0.95em;
+}
+
+.adicional-row input:focus {
+  outline: none;
+  border-color: #ffd700;
+  background: rgba(255, 215, 0, 0.08);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+.adicional-row input:disabled {
+  opacity: 0.7;
+  background: rgba(255, 215, 0, 0.05);
+}
+
+.btn-add-adicional {
+  padding: 12px 24px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #000000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 2px solid #ffd700;
+  font-size: 1em;
+  margin-top: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-add-adicional:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+  background: linear-gradient(135deg, #ffed4e 0%, #ffd700 100%);
+}
+
+.btn-add-adicional:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ============================================
+   CUOTAS - CONTENEDOR
+   ============================================ */
+
+.cuotas-container {
+  margin-top: 30px;
+  padding: 25px;
+  background: rgba(255, 215, 0, 0.03);
+  border-radius: 16px;
+  border: 2px solid rgba(255, 215, 0, 0.2);
+}
+
+.cuotas-header {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.cuotas-header h3 {
+  font-size: 1.4em;
+  color: #ffd700;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+/* ============================================
+   CUOTAS - LISTA
+   ============================================ */
+
+.cuotas-list {
+  margin: 20px 0;
+}
+
+.cuota-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 1fr auto;
+  gap: 12px;
+  margin-bottom: 15px;
+  align-items: center;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  border: 2px solid rgba(255, 215, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.cuota-row:hover {
+  border-color: rgba(255, 215, 0, 0.4);
+  background: rgba(255, 215, 0, 0.05);
+  transform: translateX(5px);
+}
+
+.cuota-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #000000;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 1.1em;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.cuota-row input {
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  background: rgba(255, 215, 0, 0.02);
+  color: #ffffff;
+  transition: all 0.3s;
+  font-size: 0.95em;
+}
+
+.cuota-row input:focus {
+  outline: none;
+  border-color: #ffd700;
+  background: rgba(255, 215, 0, 0.08);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+.cuota-row input:disabled {
+  opacity: 0.7;
+  background: rgba(255, 215, 0, 0.05);
+}
+
+.btn-add-cuota {
+  padding: 12px 24px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #000000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 2px solid #ffd700;
+  font-size: 1em;
+  margin-top: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  width: 100%;
+}
+
+.btn-add-cuota:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+  background: linear-gradient(135deg, #ffed4e 0%, #ffd700 100%);
+}
+
+.btn-add-cuota:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ============================================
+   BOTÓN REMOVER (Cuotas y Adicionales)
+   ============================================ */
+
+.btn-remove {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+  color: #ffffff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 2px solid rgba(255, 68, 68, 0.5);
+  font-size: 1em;
+}
+
+.btn-remove:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(255, 68, 68, 0.5);
+  background: linear-gradient(135deg, #ff6666 0%, #ff4444 100%);
+}
+
+.btn-remove:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ============================================
+   BOTONES PRINCIPALES
    ============================================ */
 
 .form-actions {
@@ -291,6 +571,12 @@
   transform: translateY(-1px);
 }
 
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .btn-reset {
   background: transparent;
   color: #ffd700;
@@ -300,6 +586,12 @@
   background: rgba(255, 215, 0, 0.15);
   transform: translateY(-3px);
   box-shadow: 0 8px 30px rgba(255, 215, 0, 0.3);
+}
+
+.btn-reset:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 /* ============================================
@@ -377,6 +669,30 @@
   .btn-reset {
     width: 100%;
   }
+
+  .adicional-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .cuota-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .cuota-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1em;
+  }
+
+  .adicionales-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cuotas-container {
+    padding: 15px;
+  }
 }
 
 /* ============================================
@@ -440,5 +756,15 @@
     padding: 14px 25px;
     font-size: 0.95em;
     min-width: auto;
+  }
+
+  .cuotas-header h3 {
+    font-size: 1.1em;
+  }
+
+  .btn-add-cuota,
+  .btn-add-adicional {
+    padding: 10px 20px;
+    font-size: 0.9em;
   }
 }
